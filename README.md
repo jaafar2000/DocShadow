@@ -53,7 +53,8 @@ Supports filtered similarity search.
 
 ### **Context Guardrail**
 
-If the answer is not in the PDF:
+If the answer is not in the PDF → reply exactly: "Not found in the provided document."
+
 
 ### **Terminal UI**
 
