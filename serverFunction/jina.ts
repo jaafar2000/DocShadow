@@ -1,5 +1,14 @@
 "use server";
 
+import https from "https";
+
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+  secureOptions: 0,
+});
+
+axios.defaults.httpsAgent = agent;
+
 import axios from "axios";
 
 const JINA_API_URL = "https://api.jina.ai/v1/embeddings";
@@ -35,7 +44,9 @@ export async function embedText(text: string): Promise<number[]> {
   return res.data.data[0].embedding as number[];
 }
 
-export async function embedChunksConcurrent(chunks: string[]): Promise<EmbeddedChunk[]> {
+export async function embedChunksConcurrent(
+  chunks: string[]
+): Promise<EmbeddedChunk[]> {
   const CONCURRENCY = 20;
   const results: EmbeddedChunk[] = [];
   let index = 0;

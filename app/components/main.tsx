@@ -50,7 +50,6 @@ export default function Main() {
     setAnswer("");
     setLoading(true);
 
-    // Push user + "processing"
     setArr((prev) => [
       ...prev,
       { role: "user", text: `QUERY > ${userMsg}` },
@@ -97,7 +96,7 @@ export default function Main() {
 
       setArr((prev) => {
         const u = [...prev];
-        u.pop(); // remove "PROCESSING..."
+        u.pop();
         u.push({ role: "ai", text: `RESPONSE > ${full.trim()}` });
         return u;
       });
@@ -116,10 +115,9 @@ export default function Main() {
     }
   };
 
-  // UPLOAD SCREEN
   if (showUpload) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-black">
+      <div className="w-full h-dvh flex items-center justify-center bg-black px-4">
         <UploadFile
           setShowUpload={setShowUpload}
           setProfileName={setProfileName}
@@ -129,20 +127,16 @@ export default function Main() {
     );
   }
 
-  // MAIN TERMINAL
   return (
-    <div className="bg-black text-white font-mono w-full max-w-5xl mx-auto h-screen flex flex-col border-x border-white">
+    <div className="bg-black text-white font-mono w-full max-w-5xl mx-auto h-dvh flex flex-col border-x border-white px-2 sm:px-4">
 
-      {/* HEADER */}
-      <div className="px-4 py-2 border-b border-white text-xs tracking-widest">
+      <div className="px-2 sm:px-4 py-2 border-b border-white text-xs tracking-widest">
         ACTIVE_PROFILE={profileName || "NULL"}  
         &nbsp;&nbsp;FILE={fileName || "NULL"}
       </div>
 
-      {/* CHAT */}
       <ChatWindow arr={arr} answer={answer} loading={loading} />
 
-      {/* INPUT */}
       <InputBar
         input={input}
         setInput={setInput}
@@ -150,7 +144,6 @@ export default function Main() {
         onSubmit={handleSubmit}
       />
 
-      {/* TERMINATE */}
       <button
         onClick={() => setShowConfirm(true)}
         className="mt-2 w-full py-2 border border-white text-white hover:bg-white hover:text-black tracking-widest transition"
@@ -158,10 +151,9 @@ export default function Main() {
         CTRL+C TERMINATE_SESSION
       </button>
 
-      {/* CONFIRMATION OVERLAY */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center">
-          <div className="bg-black border-2 border-red-600 p-6 w-96 text-center shadow-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center px-4">
+          <div className="bg-black border-2 border-red-600 p-6 w-full max-w-xs sm:max-w-sm text-center shadow-lg">
             <h2 className="text-red-500 font-bold text-xl mb-4 tracking-widest">
               CONFIRM TERMINATION
             </h2>
@@ -207,6 +199,7 @@ export default function Main() {
           </div>
         </div>
       )}
+
     </div>
   );
 }

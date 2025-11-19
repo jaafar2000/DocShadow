@@ -1,9 +1,8 @@
-"use server";
-
-import { PDFParse } from "pdf-parse";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { index } from "@/lib/pinecone";
 import { embedChunksConcurrent } from "./jina";
+import { extractPdfText } from "@/lib/extractPdf";
+
 function cleanText(input: string) {
   return input
     .replace(/\r/g, "")
@@ -19,23 +18,15 @@ export async function getTextFromPdf(
   fileName: string,
   profileName: string
 ) {
-  // ---------------------------------------------------------
-  //  DO NOT TOUCH — USER REQUEST
-  // ---------------------------------------------------------
   const res = await fetch(pdfUrl);
   const arrayBuffer = await res.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
-  const parser = new PDFParse({ data: buffer });
-  const result = await parser.getText();
-  await parser.destroy();
-  // ---------------------------------------------------------
 
-  const cleaned = cleanText(result.text);
+  const rawText = await extractPdfText(buffer);
+  const cleaned = cleanText(rawText);
+
   const length = cleaned.length;
-
-  // AUTO CHUNK SIZE (very stable)
   const chunkSize = Math.min(1800, Math.max(500, Math.floor(length / 25)));
-
   const overlap = Math.floor(chunkSize * 0.12);
 
   const splitter = new RecursiveCharacterTextSplitter({
@@ -45,7 +36,6 @@ export async function getTextFromPdf(
 
   const chunks = await splitter.splitText(cleaned);
 
-  // FAST EMBEDDING
   const embedded = await embedChunksConcurrent(chunks);
 
   const vectors = embedded.map((item) => ({
