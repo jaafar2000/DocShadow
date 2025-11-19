@@ -1,3 +1,6 @@
+export const runtime = "nodejs";
+
+
 import { getTextFromPdf } from "@/serverFunction/getTextFromPdf";
 
 export async function POST(req: Request) {
