@@ -7,7 +7,7 @@ The application allows you to:
 - Upload PDF files  
 - Extract and clean PDF text  
 - Auto-chunk content dynamically  
-- Generate embeddings at high speed (20× concurrency)  
+- Generate embeddings of Extracted text
 - Store vectors in Pinecone  
 - Query the PDF using natural language  
 - Stream AI responses in real-time  
@@ -18,7 +18,7 @@ The application allows you to:
 ## **Features**
 
 ### **PDF Upload (Cloudinary RAW)**  
-Uploads large PDF files using Cloudinary’s raw resource mode.
+Uploads PDF files using Cloudinary’s raw resource mode.
 
 ### **Text Extraction & Cleaning**  
 Server-side extraction using `pdf-parse`, with cleaning and normalization.
@@ -77,8 +77,7 @@ Avoid spamming uploads or excessive PDF reprocessing.
 
 ## **Links**
 
-**Live Site:** _(coming soon)_  
-**Repository:** _(this repo)_
+**Live Site:** [DocShadow](https://doc-shadow.vercel.app/) 
 
 ---
 
@@ -92,7 +91,6 @@ Avoid spamming uploads or excessive PDF reprocessing.
 - **Cloudinary RAW**
 - **pdf-parse**
 - **Tailwind CSS**
-- **React Hooks**
 
 ---
 
