@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **PDF RAG Terminal (Next.js 15)**
 
-## Getting Started
+A terminal-style document intelligence system built with **Next.js 15**, **Jina Embeddings**, **Pinecone**, **Groq LLaMA 3.3**, and **Cloudinary**.
 
-First, run the development server:
+The application allows you to:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Upload PDF files  
+- Extract and clean PDF text  
+- Auto-chunk content dynamically  
+- Generate embeddings at high speed (20× concurrency)  
+- Store vectors in Pinecone  
+- Query the PDF using natural language  
+- Stream AI responses in real-time  
+- Enforce safe, context-only answers  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## **Features**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### **PDF Upload (Cloudinary RAW)**  
+Uploads large PDF files using Cloudinary’s raw resource mode.
 
-## Learn More
+### **Text Extraction & Cleaning**  
+Server-side extraction using `pdf-parse`, with cleaning and normalization.
 
-To learn more about Next.js, take a look at the following resources:
+### **Adaptive Chunking**  
+Automatic chunk-size calculation (500–1800 chars) with ~12% overlap.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### **High-Speed Jina Embeddings**  
+Multi-chunk embedding using 20 concurrent Jina API calls.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **Pinecone Vector Indexing**  
+Each chunk is stored with:
 
-## Deploy on Vercel
+- `profile`  
+- `file`  
+- `text`  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Supports filtered similarity search.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **RAG Query Pipeline**  
+1. Normalize query text  
+2. Embed query  
+3. Pinecone similarity search  
+4. Return context  
+5. Stream LLaMA response  
+
+### **Context Guardrail**  
+If the answer is not in the PDF:
+
+
+### **Terminal UI**
+- White terminal-style progress bar  
+- Upload → Parsing → Embedding progress  
+- Real-time streamed answers  
+- `CTRL+C` session termination
+
+---
+
+## **API Limitations**
+
+- Jina embeddings rate limits  
+- Groq request limits  
+- Pinecone query/write caps  
+- Cloudinary file size limits  
+
+Avoid spamming uploads or excessive PDF reprocessing.
+
+---
+
+## **Overview**
+![Desktop](./public/images/1.png)
+![Desktop](./public/images/2.png)
+![Desktop](./public/images/3.png)
+
+---
+
+## **Links**
+
+**Live Site:** _(coming soon)_  
+**Repository:** _(this repo)_
+
+---
+
+## **Technologies Used**
+
+- **Next.js 15**
+- **TypeScript**
+- **Jina Embeddings v2**
+- **Pinecone**
+- **Groq LLaMA 3.3**
+- **Cloudinary RAW**
+- **pdf-parse**
+- **Tailwind CSS**
+- **React Hooks**
+
+---
+
+## **Author**
+
+- LinkedIn – [Jaafar Youssef](https://www.linkedin.com/in/jaafar-youssef-923100249/)
+
+---
+
+## **License**
+
+For learning and personal use only.  
+Not intended for heavy industrial document processing.
