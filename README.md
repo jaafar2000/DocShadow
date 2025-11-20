@@ -1,4 +1,4 @@
-# **PDF RAG Terminal (Next.js 15)**
+# **PDF RAG Terminal (Next.js 16)**
 
 A terminal-style document intelligence system built with **Next.js 15**, **Jina Embeddings**, **Pinecone**, **Groq LLaMA 3.3**, and **Cloudinary**.
 
